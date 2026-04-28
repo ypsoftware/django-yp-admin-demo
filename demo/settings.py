@@ -25,6 +25,10 @@ INSTALLED_APPS = [
     "core",
     "blog",
     "shop",
+    "cookbook",
+    "music",
+    "survey",
+    "kanban",
 ]
 
 MIDDLEWARE = [

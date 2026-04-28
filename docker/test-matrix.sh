@@ -5,13 +5,14 @@ cd "$(dirname "$0")/.."
 
 declare -a MATRIX=(
   "3.11 4.2"
-  "3.11 5.0"
-  "3.12 5.0"
-  "3.12 5.1"
-  "3.13 5.1"
+  "3.12 4.2"
+  "3.12 5.2"
+  "3.13 5.2"
+  "3.13 6.0"
+  "3.14 6.0"
 )
 
-YP_VER="${YP_ADMIN_VERSION:-0.1.0a2}"
+YP_VER="${YP_ADMIN_VERSION:-0.1.0a3}"
 declare -a RESULTS=()
 
 for combo in "${MATRIX[@]}"; do
