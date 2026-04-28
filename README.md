@@ -41,6 +41,30 @@ Then open <http://127.0.0.1:8000/admin/> and log in as **admin / admin**.
 - `shop/` — `Brand`, `ProductCategory` (nested ordered), `Product` (versioned, sortable images, import/export), `FAQ`
 - `core/management/commands/seed.py` — idempotent seeder
 
+## Docker matrix
+
+End-to-end validation across the supported Python x Django combos. Each combo
+builds a slim Python image, installs `django-yp-admin[full]==0.1.0a2`, runs
+`migrate` + `seed` + `check` + `collectstatic`, and renders the admin login,
+a changelist, an add form, and a sortable-inline change form via the Django
+test client — catching runtime template bugs the unit suite misses.
+
+```bash
+./docker/test-matrix.sh 2>&1 | tee docker/matrix-results.log
+```
+
+Matrix:
+
+| Python | Django |
+| --- | --- |
+| 3.11 | 4.2 |
+| 3.11 | 5.0 |
+| 3.12 | 5.0 |
+| 3.12 | 5.1 |
+| 3.13 | 5.1 |
+
+Override the version with `YP_ADMIN_VERSION=0.1.0aN ./docker/test-matrix.sh`.
+
 ## Reset
 
 ```bash

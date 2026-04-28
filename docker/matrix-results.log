@@ -1,0 +1,391 @@
+
+==========================================
+Building Python 3.11 + Django 4.2
+==========================================
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 121B done
+#3 DONE 0.0s
+
+#4 [ 1/14] FROM docker.io/library/python:3.11-slim@sha256:6d85378d88a19cd4d76079817532d62232be95757cb45945a99fec8e8084b9c2
+#4 resolve docker.io/library/python:3.11-slim@sha256:6d85378d88a19cd4d76079817532d62232be95757cb45945a99fec8e8084b9c2 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.97kB done
+#5 DONE 0.0s
+
+#6 [ 2/14] RUN apt-get update && apt-get install -y --no-install-recommends     curl build-essential libjpeg-dev zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#6 CACHED
+
+#7 [10/14] RUN python manage.py migrate --noinput
+#7 CACHED
+
+#8 [ 9/14] RUN python manage.py makemigrations --check --dry-run || python manage.py makemigrations
+#8 CACHED
+
+#9 [ 4/14] COPY . /app/
+#9 CACHED
+
+#10 [11/14] RUN python manage.py seed
+#10 CACHED
+
+#11 [ 7/14] RUN pip install "Django~=4.2.0"
+#11 CACHED
+
+#12 [ 3/14] WORKDIR /app
+#12 CACHED
+
+#13 [ 8/14] RUN pip install "Pillow>=10" "Faker>=20"
+#13 CACHED
+
+#14 [ 5/14] RUN pip install --upgrade pip
+#14 CACHED
+
+#15 [12/14] RUN python manage.py check
+#15 CACHED
+
+#16 [ 6/14] RUN pip install --pre "django-yp-admin[full]==0.1.0a2"
+#16 CACHED
+
+#17 [13/14] RUN python manage.py collectstatic --noinput
+#17 CACHED
+
+#18 [14/14] RUN python -c "import django, os;os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings');django.setup();from django.test import Client;from django.contrib.auth import get_user_model;U = get_user_model();u = U.objects.filter(username='admin').first();assert u and u.is_superuser, 'admin user missing';c = Client();assert c.login(username='admin', password='admin'), 'login failed';r = c.get('/admin/');assert r.status_code == 200, ('admin index', r.status_code);r = c.get('/admin/blog/blogpost/');assert r.status_code == 200, ('changelist', r.status_code);r = c.get('/admin/blog/blogpost/add/');assert r.status_code == 200, ('add form', r.status_code);from shop.models import Product;p = Product.objects.first();assert p, 'no product seeded';r = c.get(f'/admin/shop/product/{p.pk}/change/');assert r.status_code == 200, ('change form', r.status_code);assert b'yp-sortable-group' in r.content, 'sortable wrapper missing';print('OK: login, changelist, add form, change_form with sortable inline all rendered')"
+#18 0.357 OK: login, changelist, add form, change_form with sortable inline all rendered
+#18 DONE 0.4s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 6.8s done
+#19 exporting manifest sha256:018a7e4803b535243c5edd7be7d23e2ff6f6afa673f0c68654dbe7b910039cab done
+#19 exporting config sha256:71d5989121c24609dc5366cf2fa05b9cd2763c342cd2c5581c2f7fbea3659cfc done
+#19 exporting attestation manifest sha256:21cc7effa56f8025ecbf9833c4a0fe94b5e326ca4d9c6c4db256ec9c8c95bcb7 done
+#19 exporting manifest list sha256:75ae3f07328e265c0fdef87ff4962208000a1dd56b094730085fd32f88d17b01 done
+#19 naming to docker.io/library/yp-demo-py3.11-dj4.2:latest done
+#19 unpacking to docker.io/library/yp-demo-py3.11-dj4.2:latest
+#19 unpacking to docker.io/library/yp-demo-py3.11-dj4.2:latest 2.1s done
+#19 DONE 9.0s
+
+==========================================
+Building Python 3.11 + Django 5.0
+==========================================
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.11-slim
+#2 DONE 0.6s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 121B done
+#3 DONE 0.0s
+
+#4 [ 1/14] FROM docker.io/library/python:3.11-slim@sha256:6d85378d88a19cd4d76079817532d62232be95757cb45945a99fec8e8084b9c2
+#4 resolve docker.io/library/python:3.11-slim@sha256:6d85378d88a19cd4d76079817532d62232be95757cb45945a99fec8e8084b9c2 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.97kB done
+#5 DONE 0.0s
+
+#6 [12/14] RUN python manage.py check
+#6 CACHED
+
+#7 [ 8/14] RUN pip install "Pillow>=10" "Faker>=20"
+#7 CACHED
+
+#8 [ 3/14] WORKDIR /app
+#8 CACHED
+
+#9 [ 6/14] RUN pip install --pre "django-yp-admin[full]==0.1.0a2"
+#9 CACHED
+
+#10 [ 7/14] RUN pip install "Django~=5.0.0"
+#10 CACHED
+
+#11 [11/14] RUN python manage.py seed
+#11 CACHED
+
+#12 [ 4/14] COPY . /app/
+#12 CACHED
+
+#13 [ 5/14] RUN pip install --upgrade pip
+#13 CACHED
+
+#14 [ 2/14] RUN apt-get update && apt-get install -y --no-install-recommends     curl build-essential libjpeg-dev zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#14 CACHED
+
+#15 [ 9/14] RUN python manage.py makemigrations --check --dry-run || python manage.py makemigrations
+#15 CACHED
+
+#16 [10/14] RUN python manage.py migrate --noinput
+#16 CACHED
+
+#17 [13/14] RUN python manage.py collectstatic --noinput
+#17 CACHED
+
+#18 [14/14] RUN python -c "import django, os;os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings');django.setup();from django.test import Client;from django.contrib.auth import get_user_model;U = get_user_model();u = U.objects.filter(username='admin').first();assert u and u.is_superuser, 'admin user missing';c = Client();assert c.login(username='admin', password='admin'), 'login failed';r = c.get('/admin/');assert r.status_code == 200, ('admin index', r.status_code);r = c.get('/admin/blog/blogpost/');assert r.status_code == 200, ('changelist', r.status_code);r = c.get('/admin/blog/blogpost/add/');assert r.status_code == 200, ('add form', r.status_code);from shop.models import Product;p = Product.objects.first();assert p, 'no product seeded';r = c.get(f'/admin/shop/product/{p.pk}/change/');assert r.status_code == 200, ('change form', r.status_code);assert b'yp-sortable-group' in r.content, 'sortable wrapper missing';print('OK: login, changelist, add form, change_form with sortable inline all rendered')"
+#18 0.403 OK: login, changelist, add form, change_form with sortable inline all rendered
+#18 DONE 0.7s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 7.3s done
+#19 exporting manifest sha256:0b969932836ca060fa914e453f469bb004aa507bbc51b14fc31dce48227727d3
+#19 exporting manifest sha256:0b969932836ca060fa914e453f469bb004aa507bbc51b14fc31dce48227727d3 done
+#19 exporting config sha256:914893f922940a4d69541ac71ede29282b2999f3d7f594c0c041639d0ce8cbf6 done
+#19 exporting attestation manifest sha256:0cb5908344967e6e13b1e0125de0842d954336cccc28f7b2b970b38d8fe44f06 done
+#19 exporting manifest list sha256:0258c1a1ffc31e0b47c9bad5d3dfb273b840a8d4c8ab6dfc570f05c44ebdb980 done
+#19 naming to docker.io/library/yp-demo-py3.11-dj5.0:latest done
+#19 unpacking to docker.io/library/yp-demo-py3.11-dj5.0:latest
+#19 unpacking to docker.io/library/yp-demo-py3.11-dj5.0:latest 2.1s done
+#19 DONE 9.5s
+
+==========================================
+Building Python 3.12 + Django 5.0
+==========================================
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 121B done
+#3 DONE 0.0s
+
+#4 [ 1/14] FROM docker.io/library/python:3.12-slim@sha256:46cb7cc2877e60fbd5e21a9ae6115c30ace7a077b9f8772da879e4590c18c2e3
+#4 resolve docker.io/library/python:3.12-slim@sha256:46cb7cc2877e60fbd5e21a9ae6115c30ace7a077b9f8772da879e4590c18c2e3 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.97kB done
+#5 DONE 0.0s
+
+#6 [11/14] RUN python manage.py seed
+#6 CACHED
+
+#7 [12/14] RUN python manage.py check
+#7 CACHED
+
+#8 [10/14] RUN python manage.py migrate --noinput
+#8 CACHED
+
+#9 [ 7/14] RUN pip install "Django~=5.0.0"
+#9 CACHED
+
+#10 [ 4/14] COPY . /app/
+#10 CACHED
+
+#11 [ 5/14] RUN pip install --upgrade pip
+#11 CACHED
+
+#12 [ 2/14] RUN apt-get update && apt-get install -y --no-install-recommends     curl build-essential libjpeg-dev zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [ 3/14] WORKDIR /app
+#13 CACHED
+
+#14 [ 6/14] RUN pip install --pre "django-yp-admin[full]==0.1.0a2"
+#14 CACHED
+
+#15 [ 9/14] RUN python manage.py makemigrations --check --dry-run || python manage.py makemigrations
+#15 CACHED
+
+#16 [ 8/14] RUN pip install "Pillow>=10" "Faker>=20"
+#16 CACHED
+
+#17 [13/14] RUN python manage.py collectstatic --noinput
+#17 CACHED
+
+#18 [14/14] RUN python -c "import django, os;os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings');django.setup();from django.test import Client;from django.contrib.auth import get_user_model;U = get_user_model();u = U.objects.filter(username='admin').first();assert u and u.is_superuser, 'admin user missing';c = Client();assert c.login(username='admin', password='admin'), 'login failed';r = c.get('/admin/');assert r.status_code == 200, ('admin index', r.status_code);r = c.get('/admin/blog/blogpost/');assert r.status_code == 200, ('changelist', r.status_code);r = c.get('/admin/blog/blogpost/add/');assert r.status_code == 200, ('add form', r.status_code);from shop.models import Product;p = Product.objects.first();assert p, 'no product seeded';r = c.get(f'/admin/shop/product/{p.pk}/change/');assert r.status_code == 200, ('change form', r.status_code);assert b'yp-sortable-group' in r.content, 'sortable wrapper missing';print('OK: login, changelist, add form, change_form with sortable inline all rendered')"
+#18 0.451 OK: login, changelist, add form, change_form with sortable inline all rendered
+#18 DONE 0.7s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 7.9s done
+#19 exporting manifest sha256:58c340cbbfbc3a7e0130df9387b156a0ffad161406378cce6c20df16a50d3168
+#19 exporting manifest sha256:58c340cbbfbc3a7e0130df9387b156a0ffad161406378cce6c20df16a50d3168 done
+#19 exporting config sha256:08c9302962451f646e69149410202a2fa1d20ba6e5e11861ad746362ebc5d0dc done
+#19 exporting attestation manifest sha256:1c94720c426dc5378eb654e3a111f3b2ea1801b7888d93688d0ef0473513262e done
+#19 exporting manifest list sha256:57b4b438f56f7bbb8fa1454cf6c6c6aa60f665e13700e1749e2f6ec63251992a done
+#19 naming to docker.io/library/yp-demo-py3.12-dj5.0:latest done
+#19 unpacking to docker.io/library/yp-demo-py3.12-dj5.0:latest
+#19 unpacking to docker.io/library/yp-demo-py3.12-dj5.0:latest 3.4s done
+#19 DONE 11.3s
+
+==========================================
+Building Python 3.12 + Django 5.1
+==========================================
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 0.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 121B done
+#3 DONE 0.0s
+
+#4 [ 1/14] FROM docker.io/library/python:3.12-slim@sha256:46cb7cc2877e60fbd5e21a9ae6115c30ace7a077b9f8772da879e4590c18c2e3
+#4 resolve docker.io/library/python:3.12-slim@sha256:46cb7cc2877e60fbd5e21a9ae6115c30ace7a077b9f8772da879e4590c18c2e3 done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.97kB done
+#5 DONE 0.0s
+
+#6 [11/14] RUN python manage.py seed
+#6 CACHED
+
+#7 [ 6/14] RUN pip install --pre "django-yp-admin[full]==0.1.0a2"
+#7 CACHED
+
+#8 [ 5/14] RUN pip install --upgrade pip
+#8 CACHED
+
+#9 [12/14] RUN python manage.py check
+#9 CACHED
+
+#10 [ 9/14] RUN python manage.py makemigrations --check --dry-run || python manage.py makemigrations
+#10 CACHED
+
+#11 [ 7/14] RUN pip install "Django~=5.1.0"
+#11 CACHED
+
+#12 [ 3/14] WORKDIR /app
+#12 CACHED
+
+#13 [ 4/14] COPY . /app/
+#13 CACHED
+
+#14 [10/14] RUN python manage.py migrate --noinput
+#14 CACHED
+
+#15 [ 8/14] RUN pip install "Pillow>=10" "Faker>=20"
+#15 CACHED
+
+#16 [ 2/14] RUN apt-get update && apt-get install -y --no-install-recommends     curl build-essential libjpeg-dev zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#16 CACHED
+
+#17 [13/14] RUN python manage.py collectstatic --noinput
+#17 CACHED
+
+#18 [14/14] RUN python -c "import django, os;os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings');django.setup();from django.test import Client;from django.contrib.auth import get_user_model;U = get_user_model();u = U.objects.filter(username='admin').first();assert u and u.is_superuser, 'admin user missing';c = Client();assert c.login(username='admin', password='admin'), 'login failed';r = c.get('/admin/');assert r.status_code == 200, ('admin index', r.status_code);r = c.get('/admin/blog/blogpost/');assert r.status_code == 200, ('changelist', r.status_code);r = c.get('/admin/blog/blogpost/add/');assert r.status_code == 200, ('add form', r.status_code);from shop.models import Product;p = Product.objects.first();assert p, 'no product seeded';r = c.get(f'/admin/shop/product/{p.pk}/change/');assert r.status_code == 200, ('change form', r.status_code);assert b'yp-sortable-group' in r.content, 'sortable wrapper missing';print('OK: login, changelist, add form, change_form with sortable inline all rendered')"
+#18 0.447 OK: login, changelist, add form, change_form with sortable inline all rendered
+#18 DONE 0.7s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 7.8s done
+#19 exporting manifest sha256:04c5483a2e3ee46ddff07bbd2c17fc115673e75ef2ccf73220e86336512ebb70 done
+#19 exporting config sha256:37ce4135b6cb13b700826d43095ab9e5ff8cbbb81c00f7d235f38963483c383f done
+#19 exporting attestation manifest sha256:5553899e464509a276b922b1808f9bffcafae34cc6c3eabe681b8af1cf205174 done
+#19 exporting manifest list sha256:b0b76fe01e5147e4d25fc299b937cc21de743809b1e0730474f8fd35ec0ae23b done
+#19 naming to docker.io/library/yp-demo-py3.12-dj5.1:latest done
+#19 unpacking to docker.io/library/yp-demo-py3.12-dj5.1:latest
+#19 unpacking to docker.io/library/yp-demo-py3.12-dj5.1:latest 3.3s done
+#19 DONE 11.1s
+
+==========================================
+Building Python 3.13 + Django 5.1
+==========================================
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.07kB done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.13-slim
+#2 DONE 0.4s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 121B done
+#3 DONE 0.0s
+
+#4 [ 1/14] FROM docker.io/library/python:3.13-slim@sha256:a0779d7c12fc20be6ec6b4ddc901a4fd7657b8a6bc9def9d3fde89ed5efe0a3d
+#4 resolve docker.io/library/python:3.13-slim@sha256:a0779d7c12fc20be6ec6b4ddc901a4fd7657b8a6bc9def9d3fde89ed5efe0a3d done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.97kB done
+#5 DONE 0.0s
+
+#6 [ 7/14] RUN pip install "Django~=5.1.0"
+#6 CACHED
+
+#7 [ 2/14] RUN apt-get update && apt-get install -y --no-install-recommends     curl build-essential libjpeg-dev zlib1g-dev     && rm -rf /var/lib/apt/lists/*
+#7 CACHED
+
+#8 [ 4/14] COPY . /app/
+#8 CACHED
+
+#9 [ 3/14] WORKDIR /app
+#9 CACHED
+
+#10 [ 6/14] RUN pip install --pre "django-yp-admin[full]==0.1.0a2"
+#10 CACHED
+
+#11 [11/14] RUN python manage.py seed
+#11 CACHED
+
+#12 [ 5/14] RUN pip install --upgrade pip
+#12 CACHED
+
+#13 [12/14] RUN python manage.py check
+#13 CACHED
+
+#14 [10/14] RUN python manage.py migrate --noinput
+#14 CACHED
+
+#15 [ 9/14] RUN python manage.py makemigrations --check --dry-run || python manage.py makemigrations
+#15 CACHED
+
+#16 [ 8/14] RUN pip install "Pillow>=10" "Faker>=20"
+#16 CACHED
+
+#17 [13/14] RUN python manage.py collectstatic --noinput
+#17 CACHED
+
+#18 [14/14] RUN python -c "import django, os;os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'demo.settings');django.setup();from django.test import Client;from django.contrib.auth import get_user_model;U = get_user_model();u = U.objects.filter(username='admin').first();assert u and u.is_superuser, 'admin user missing';c = Client();assert c.login(username='admin', password='admin'), 'login failed';r = c.get('/admin/');assert r.status_code == 200, ('admin index', r.status_code);r = c.get('/admin/blog/blogpost/');assert r.status_code == 200, ('changelist', r.status_code);r = c.get('/admin/blog/blogpost/add/');assert r.status_code == 200, ('add form', r.status_code);from shop.models import Product;p = Product.objects.first();assert p, 'no product seeded';r = c.get(f'/admin/shop/product/{p.pk}/change/');assert r.status_code == 200, ('change form', r.status_code);assert b'yp-sortable-group' in r.content, 'sortable wrapper missing';print('OK: login, changelist, add form, change_form with sortable inline all rendered')"
+#18 0.578 OK: login, changelist, add form, change_form with sortable inline all rendered
+#18 DONE 0.8s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 8.3s done
+#19 exporting manifest sha256:767507b979a30d0ea85d2a79991daf9e7b79bec5adb41dadafb41849a954c763 done
+#19 exporting config sha256:8009a2751c0c2d7f8e0559aa87d905fb33f489badc5341bb774d4db1a7a7d5fe done
+#19 exporting attestation manifest sha256:f54300dd7f1c36c46fb437128a3c8b7c2d52a77b59108c16a108da05c1921cba done
+#19 exporting manifest list sha256:6fe48d1711282626de72ca23068fd19f7b97f4e240d0689ee34f89d93ce22b13 done
+#19 naming to docker.io/library/yp-demo-py3.13-dj5.1:latest done
+#19 unpacking to docker.io/library/yp-demo-py3.13-dj5.1:latest
+#19 unpacking to docker.io/library/yp-demo-py3.13-dj5.1:latest 3.0s done
+#19 DONE 11.3s
+
+==========================================
+Matrix summary:
+  PASS  py3.11 dj4.2
+  PASS  py3.11 dj5.0
+  PASS  py3.12 dj5.0
+  PASS  py3.12 dj5.1
+  PASS  py3.13 dj5.1
+==========================================

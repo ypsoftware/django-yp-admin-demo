@@ -1,6 +1,4 @@
-# Django 5.1 removed the |length_is filter that django-yp-admin templates still use.
-# Pin to <5.1 (LTS 4.2 line) until upstream replaces |length_is with |length ==.
-Django>=4.2,<5.1
-django-yp-admin[full]>=0.1.0a1
-Pillow
-Faker
+Django>=4.2,<5.2
+django-yp-admin[full]>=0.1.0a2
+Pillow>=10
+Faker>=20
